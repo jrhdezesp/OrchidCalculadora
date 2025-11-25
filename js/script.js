@@ -91,12 +91,6 @@
 		del.type = 'button';
 		del.className = 'delete-btn';
 		del.textContent = 'Eliminar';
-		del.addEventListener('click', ()=>{
-			// restar del acumulado y remover tarjeta
-			runningTotalL = Math.max(0, runningTotalL - vals.totalL);
-			grandTotalInput.value = fmtL(runningTotalL);
-			card.remove();
-		});
 
 		rightWrap.appendChild(right);
 		rightWrap.appendChild(del);
@@ -107,8 +101,27 @@
 		runningTotalL += vals.totalL;
 		grandTotalInput.value = fmtL(runningTotalL);
 
-		// almacenar datos de la tarjeta en la lista (para el reporte)
-		cardsList.push({ price: vals.price, tax: vals.tax, commission: vals.commission, totalUSD: vals.totalUSD, totalL: vals.totalL, createdAt: new Date().toISOString() });
+		// generar id único para la tarjeta y almacenar datos en la lista (para el reporte)
+		const cardId = 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+		const cardData = { id: cardId, price: vals.price, tax: vals.tax, commission: vals.commission, totalUSD: vals.totalUSD, totalL: vals.totalL, createdAt: new Date().toISOString() };
+		cardsList.push(cardData);
+		card.dataset.id = cardId;
+
+		// eliminar: buscar en cardsList y quitar el registro también
+		del.addEventListener('click', ()=>{
+			const id = card.dataset.id;
+			const idx = cardsList.findIndex(x => x.id === id);
+			if(idx !== -1){
+				const item = cardsList[idx];
+				runningTotalL = Math.max(0, runningTotalL - item.totalL);
+				cardsList.splice(idx, 1);
+			}else{
+				// fallback: usar vals
+				runningTotalL = Math.max(0, runningTotalL - vals.totalL);
+			}
+			grandTotalInput.value = fmtL(runningTotalL);
+			card.remove();
+		});
 
 		// opcional: limpiar campo precio para evitar duplicados accidentales
 		priceUSD.value = '';
