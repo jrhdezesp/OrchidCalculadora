@@ -1,0 +1,17 @@
+# Node (if you ever use node)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# env files
+.env
+
+# logs
+*.log
+
+# JetBrains
+.idea/

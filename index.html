@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orchid - Calculadora de Precios</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <meta name="description" content="Calculadora de precios simple para pedidos.">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap">
+            <h1>Orchid - Calculadora de Precios</h1>
+            <p class="muted">Calcula el costo estimado de tu pedido al instante</p>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <section class="calculator">
+            <form id="calcForm" class="calc-form" action="#" onsubmit="return false;">
+                <div class="left-column">
+                <div class="form-row">
+                    <label for="priceUSD">Precio del artículo (USD)</label>
+                    <input id="priceUSD" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" autocomplete="off">
+                </div>
+
+                <div class="result summary" id="summary" aria-live="polite">
+                    <div class="big-total">Total en Lempiras: <strong id="totalL">L.0.00</strong></div>
+
+                    <div class="invoice">
+                        <h3>Detalle</h3>
+                        <div class="inv-row"><span>Precio del artículo:</span> <span id="invPrice">$0.00</span></div>
+                        <div class="inv-row"><span>Impuesto:</span> <span id="invTax">$0.00</span></div>
+                        <div class="inv-row"><span>Comisión:</span> <span id="invCommission">$0.00</span></div>
+                        <div class="inv-row total"><span>Total (USD):</span> <span id="invTotalUSD">$0.00</span></div>
+                        <div class="inv-row total"><span>Total (Lempiras):</span> <span id="invTotalL">L.0.00</span></div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="generateBtn" type="button">Agregar Producto</button>
+                    <button id="pdfBtn" type="button">Generar Factura</button>
+                    <button id="resetBtn" type="button">Restablecer Productos</button>
+                </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="cards-area">
+                        <h3>Productos</h3>
+                        <div id="cardsContainer" class="cards-container"></div>
+                        <div class="grand-total-box">
+                            <label for="grandTotalL">Total acumulado (L.)</label>
+                            <input id="grandTotalL" type="text" readonly value="L.0.00">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <small>El precio por libra es de L. 200.00.<br>Si pesa menos de 1 lb el precio es L. 100.00.</small>
+        </div>
+        <div class="ftr">
+            <p>&copy; 2025 Orchid. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
